@@ -1,0 +1,10 @@
+// import export default all sections here
+export { default as HeroSection } from "./hero-section"
+export { default as AboutSection } from "./about-section"
+export { default as ServicesSection } from "./services-section"
+export { default as WhyChooseUsSection } from "./why-choose-us-section"
+export { default as PortfolioSection } from "./portfolio-section"
+export { default as TestimonialsSection } from "./testimonials-section"
+export { default as ContactCTASection } from "./contact-cta-section"
+export { default as FooterSection } from "./footer-section"
+export { default as ContactFormSection } from "./contact-form-section"
