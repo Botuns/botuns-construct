@@ -19,7 +19,7 @@ import {
   ContactCTASection,
   FooterSection,
   ContactFormSection,
-} from "./sections"
+} from "../components/sections"
 
 export default function Page() {
   return (

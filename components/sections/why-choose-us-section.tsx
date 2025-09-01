@@ -30,7 +30,7 @@ const CARDS: WhyCard[] = [
       "Clear escalation & sign‑off hierarchy",
       "Document traceability for every cost line",
     ],
-    bg: "#1a2332", // Deep navy blue
+    bg: "#0E2A5A", // Solid royal navy
   },
   {
     id: "multidisciplinary",
@@ -44,7 +44,7 @@ const CARDS: WhyCard[] = [
       "Coordinated design‑to‑procure handoffs",
       "Central cost & schedule intelligence",
     ],
-    bg: "#2d1b2e", // Deep purple
+    bg: "#2E0F4F", // Solid royal purple
   },
   {
     id: "transparency",
@@ -57,7 +57,7 @@ const CARDS: WhyCard[] = [
       "Change control discipline",
       "Open book selected procurement",
     ],
-    bg: "#1f3a2e", // Deep forest green
+    bg: "#0B4A3A", // Solid deep emerald
   },
   {
     id: "schedule",
@@ -117,7 +117,7 @@ export default function WhyChooseUsSection() {
       const cards = cardsRef.current.filter(Boolean);
       if (!cards.length || !stackRef.current) return;
 
-      const STACK_GAP = 56; // vertical offset between card tops (px)
+      const STACK_GAP = 36; // vertical offset between card tops (px)
       const SCALE_STEP = 0.04; // scale reduction per depth level
       const DIRECTION: "up" | "down" = "up";
 
@@ -145,7 +145,7 @@ export default function WhyChooseUsSection() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: stackRef.current,
-          start: "top top",
+          start: "top 20%", // start when the section's top hits 70% of viewport height
           end: "+=" + totalHeight,
           scrub: true,
           pin: true,
@@ -214,7 +214,7 @@ export default function WhyChooseUsSection() {
       className="relative w-full bg-[#0d0f11] text-white overflow-hidden"
     >
       {/* Accent bar behind stack */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[92%] h-16 md:h-20 rounded-b-[48px] bg-[linear-gradient(90deg,#d4af37,#f0d488,#d4af37)] opacity-[0.85] z-50" />
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[92%] h-16 md:h-20 rounded-b-[48px] bg-[linear-gradient(90deg,#d4af37,#f0d488,#d4af37)] opacity-[0.85] z-50 bg-none" />
 
       {/* Header section */}
       <div className="relative z-40 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-24 pb-16 md:pt-32 md:pb-24">
@@ -244,7 +244,7 @@ export default function WhyChooseUsSection() {
             className="flex items-center justify-center will-change-transform"
           >
             <article
-              className="relative origin-center flex flex-col border border-white/8 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] rounded-2xl md:rounded-3xl overflow-hidden w-full max-w-5xl mx-6 md:mx-12 lg:mx-24"
+              className="relative origin-center flex flex-col border border-white/8 border-none shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] rounded-none md:rounded-none overflow-hidden w-full max-w-4xl mx-6 md:mx-12 lg:mx-24 "
               style={{ backgroundColor: card.bg }}
             >
               {/* Subtle overlay for depth */}
@@ -283,7 +283,7 @@ export default function WhyChooseUsSection() {
                   </span>
                   <span className="hidden sm:inline-block h-3 w-px bg-white/10" />
                   <span className="hidden sm:inline-block">
-                    CARD {String(i + 1).padStart(2, "0")} /{" "}
+                    {String(i + 1).padStart(2, "0")} /{" "}
                     {String(CARDS.length).padStart(2, "0")}
                   </span>
                 </div>
@@ -314,7 +314,7 @@ export default function WhyChooseUsSection() {
 
       {/* CTA section */}
       <div className="relative z-40 mt-20 md:mt-32 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-32 md:pb-48">
-        <div className="bg-[#181b20] border border-white/8 px-8 md:px-16 lg:px-24 py-16 md:py-24 shadow-[0_12px_48px_-12px_rgba(0,0,0,0.55)] rounded-2xl relative overflow-hidden">
+        <div className="bg-[#181b20] border border-white/8 px-8 md:px-16 lg:px-24 py-16 md:py-24 shadow-[0_12px_48px_-12px_rgba(0,0,0,0.55)] rounded-none relative overflow-hidden">
           {/* Grid pattern overlay */}
           <div className="pointer-events-none absolute inset-0 opacity-[0.08]">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
