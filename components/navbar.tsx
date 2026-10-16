@@ -3,15 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const links = [
-  { name: "About us", id: "about" },
-  { name: "Our services", id: "services" },
-  { name: "Projects", id: "portfolio" },
+  { name: "About us", id: "about", href: "/#about" },
+  { name: "Our services", id: "services", href: "/#services" },
+  { name: "Projects", id: "portfolio", href: "/#portfolio" },
+  { name: "Meet the CEO", id: "ceo", href: "/meet-the-ceo" },
 ];
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
+  const pathname = usePathname();
   const nav = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -35,7 +39,7 @@ export default function Navbar() {
       if (section) observer.observe(section);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
   useEffect(() => {
     if (!open) return;
     const close = (event: KeyboardEvent) => {
@@ -60,6 +64,10 @@ export default function Navbar() {
       desktop.removeEventListener("change", resize);
     };
   }, [open]);
+  function current(link: { id: string; href: string }) {
+    if (!link.href.includes("#")) return pathname === link.href ? "page" : undefined;
+    return pathname === "/" && active === link.id ? "location" : undefined;
+  }
   return (
     <header className="site-header">
       <nav
@@ -67,32 +75,39 @@ export default function Navbar() {
         className="site-shell nav-inner"
         aria-label="Main navigation"
       >
-        <a
-          href="#home"
+        <Link
+          href="/"
           className="brand"
           aria-label="Botuns Construct home"
           onClick={() => setOpen(false)}
         >
-          <Image src="/logo.png" width={48} height={48} alt="" priority />
-          <span>
-            BOTUNS
+          <Image
+            src="/brand/botuns-mark.png"
+            width={379}
+            height={263}
+            alt=""
+            priority
+            className="brand-mark"
+          />
+          <span className="brand-text">
+            <span className="brand-name">BOTUNS</span>
             <span className="brand-subtitle">CONSTRUCT NIGERIA LIMITED</span>
           </span>
-        </a>
+        </Link>
         <div className="desktop-links">
           {links.map((link) => (
-            <a
+            <Link
               key={link.id}
-              href={`#${link.id}`}
-              aria-current={active === link.id ? "location" : undefined}
+              href={link.href}
+              aria-current={current(link)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
-        <a className="button button-dark nav-cta" href="#contact">
+        <Link className="button button-dark nav-cta" href="/#contact">
           Let’s talk <ArrowUpRight size={16} />
-        </a>
+        </Link>
         <button
           ref={toggle}
           className="menu-toggle"
@@ -109,18 +124,19 @@ export default function Navbar() {
           hidden={!open}
         >
           {[
-            { name: "Home", id: "home" },
+            { name: "Home", id: "home", href: "/" },
             ...links,
-            { name: "Contact", id: "contact" },
+            { name: "Contact", id: "contact", href: "/#contact" },
           ].map((link) => (
-            <a
+            <Link
               key={link.id}
-              href={`#${link.id}`}
+              href={link.href}
+              aria-current={current(link)}
               onClick={() => setOpen(false)}
             >
               {link.name}
               <ArrowUpRight size={18} />
-            </a>
+            </Link>
           ))}
           <a className="mobile-phone" href="tel:+2348034706314">
             +234 803 470 6314

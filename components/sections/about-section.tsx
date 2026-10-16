@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 export default function AboutSection() {
   return (
@@ -11,12 +12,17 @@ export default function AboutSection() {
               <br />A wealth of experience.
             </h2>
             <div className="about-copy">
-              <p>
-                We are Botuns Construct Nigeria Limited, an Ibadan-based
-                construction, property and supply company. Incorporated in 2025,
-                we bring over 18 years of combined founding experience to every
-                project.
-              </p>
+              <div>
+                <p>
+                  We are Botuns Construct Nigeria Limited, an Ibadan-based
+                  construction, property and supply company. Incorporated in
+                  2025, we bring over 18 years of combined founding experience
+                  to every project.
+                </p>
+                <Link className="text-link" href="/meet-the-ceo">
+                  Meet our founder &amp; CEO <ArrowUpRight size={18} />
+                </Link>
+              </div>
               <div>
                 <p>
                   Our approach is straightforward: understand your vision, plan

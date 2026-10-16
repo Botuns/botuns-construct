@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   ArrowUpRight,
   Hammer,
@@ -11,24 +12,32 @@ const services = [
     text: "From foundations to finishing touches. Complete builds, thoughtful renovations and structural repairs.",
     Icon: Hammer,
     tags: "NEW BUILDS / RENOVATIONS / REPAIRS",
+    image: "/assets/services/construction.webp",
+    position: "62% center",
   },
   {
     title: "Purchasing & supply",
     text: "The right materials, where you need them. Reliable procurement of construction materials and equipment.",
     Icon: Package,
     tags: "MATERIALS / EQUIPMENT / PROCUREMENT",
+    image: "/assets/services/supply.webp",
+    position: "center",
   },
   {
     title: "Property & investment",
     text: "See the potential in every space. Property development, sales and guidance for your next investment.",
     Icon: House,
     tags: "DEVELOPMENT / SALES / ADVISORY",
+    image: "/assets/projects/completed-bungalow/side-elevation.webp",
+    position: "70% center",
   },
   {
     title: "General merchandising",
     text: "Practical sourcing and trading solutions that help your business get what it needs to move forward.",
     Icon: ShoppingBag,
     tags: "SOURCING / TRADING / BUSINESS SUPPLIES",
+    image: "/assets/services/merchandising.webp",
+    position: "40% center",
   },
 ];
 export default function ServicesSection() {
@@ -51,10 +60,21 @@ export default function ServicesSection() {
           </p>
         </div>
         <div className="services-grid">
-          {services.map(({ title, text, Icon, tags }, i) => (
+          {services.map(({ title, text, Icon, tags, image, position }, i) => (
             <a key={title} className="service-card" href="#contact-form">
+              <Image
+                src={image}
+                alt=""
+                fill
+                sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 25vw"
+                className="service-image"
+                style={{ objectPosition: position }}
+              />
+              <span className="service-shade" aria-hidden="true" />
               <div className="service-top">
-                <Icon size={29} strokeWidth={1.3} />
+                <span className="service-icon">
+                  <Icon size={24} strokeWidth={1.4} />
+                </span>
                 <span>0{i + 1}</span>
               </div>
               <h3>{title}</h3>
