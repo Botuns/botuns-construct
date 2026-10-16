@@ -1,9 +1,8 @@
 "use client";
-
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { X } from "lucide-react";
 import type { MediaItem } from "./media-card";
-
 export default function Lightbox({
   open,
   item,
@@ -13,65 +12,61 @@ export default function Lightbox({
   item?: MediaItem | null;
   onClose: () => void;
 }) {
+  const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
+    const element = dialog.current;
+    if (!open || !element) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    element.showModal();
     document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "unset";
+      element.close();
+      document.body.style.overflow = overflow;
+      previouslyFocused?.focus();
     };
-  }, [open, onClose]);
-
-  if (!open || !item) return null;
-
+  }, [open]);
   return (
-    <div
-      className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label={item.title}
-      onClick={onClose}
+    <dialog
+      ref={dialog}
+      className="lightbox"
+      aria-labelledby="lightbox-title"
+      onCancel={onClose}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
     >
-      <div
-        className="relative max-w-6xl w-full"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          className="absolute -top-12 right-0 text-white/80 hover:text-white text-sm tracking-widest"
-          onClick={onClose}
-        >
-          CLOSE ✕
-        </button>
-        <div className="relative w-full aspect-video bg-black">
-          {item.type === "image" ? (
-            <Image
-              src={item.src}
-              alt={item.title}
-              fill
-              className="object-contain"
-            />
-          ) : (
-            // eslint-disable-next-line jsx-a11y/media-has-caption
-            <video
-              className="absolute inset-0 w-full h-full"
-              controls
-              playsInline
+      {item && (
+        <div className="lightbox-inner">
+          <div className="lightbox-heading">
+            <div>
+              <p className="eyebrow">{item.category}</p>
+              <h2 id="lightbox-title">{item.title}</h2>
+            </div>
+            <button
+              autoFocus
+              className="lightbox-close"
+              onClick={onClose}
+              aria-label="Close image"
             >
-              <source src={item.src} type="video/mp4" />
-            </video>
-          )}
-        </div>
-        <div className="mt-4 text-white/90">
-          <div className="text-xs uppercase tracking-widest opacity-75">
-            {item.category}
+              <X />
+            </button>
           </div>
-          <h4 className="text-xl font-semibold mt-1">{item.title}</h4>
+          <div className="lightbox-media">
+            {item.type === "image" ? (
+              <Image
+                src={item.src}
+                alt={item.title}
+                fill
+                sizes="90vw"
+                className="object-contain"
+              />
+            ) : (
+              <video src={item.src} controls playsInline preload="metadata" />
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </dialog>
   );
 }

@@ -1,52 +1,27 @@
-"use client"
-
-// import HeroSection from "./sections/hero-section"
-// import AboutSection from "./sections/about-section"
-// import ServicesSection from "./sections/services-section"
-// import WhyChooseUsSection from "./sections/why-choose-us-section"
-// import PortfolioSection from "./sections/portfolio-section"
-// import TestimonialsSection from "./sections/testimonials-section"
-// import ContactCTASection from "./sections/contact-cta-section"
-// import ContactFormSection from "../contact-form-section"
-// import FooterSection from "./sections/footer-section"
-import {
-  HeroSection,
-  AboutSection,
-  ServicesSection,
-  WhyChooseUsSection,
-  PortfolioSection,
-  TestimonialsSection,
-  ContactCTASection,
-  FooterSection,
-  ContactFormSection,
-} from "../components/sections"
+import HeroSection from "@/components/sections/hero-section";
+import AboutSection from "@/components/sections/about-section";
+import ServicesSection from "@/components/sections/services-section";
+import WhyChooseUsSection from "@/components/sections/why-choose-us-section";
+import PortfolioSection from "@/components/sections/portfolio-section";
+import TestimonialsSection from "@/components/sections/testimonials-section";
+import ContactCTASection from "@/components/sections/contact-cta-section";
+import ContactFormSection from "@/components/sections/contact-form-section";
+import FooterSection from "@/components/sections/footer-section";
 
 export default function Page() {
   return (
-    <main>
-      <div id="home">
+    <>
+      <main id="main-content">
         <HeroSection />
-      </div>
-      <div id="about">
         <AboutSection />
-      </div>
-      <div id="services">
         <ServicesSection />
-      </div>
-      <div id="why-choose-us">
         <WhyChooseUsSection />
-      </div>
-      <div id="portfolio">
         <PortfolioSection />
-      </div>
-      <div id="testimonials">
         <TestimonialsSection />
-      </div>
-      <div id="contact">
         <ContactCTASection />
         <ContactFormSection />
-      </div>
+      </main>
       <FooterSection />
-    </main>
-  )
+    </>
+  );
 }
